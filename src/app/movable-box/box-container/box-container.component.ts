@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 interface Box {
   style: any;
@@ -14,6 +14,7 @@ export class BoxContainerComponent implements OnInit {
   constructor() { }
   activeBox: Box;
   boxList: Array<Box> = [];
+  readonly speedInPx = 10;
 
   ngOnInit(): void {
   }
@@ -42,5 +43,56 @@ export class BoxContainerComponent implements OnInit {
     const selectedBoxIndex = this.boxList.findIndex(box => box.boxNumber === this.activeBox.boxNumber);
     this.boxList.splice(selectedBoxIndex, 1);
     this.selectBox(null);
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    if (!this.activeBox) {
+      return;
+    }
+    switch (event.key) {
+      case 'ArrowUp':
+      case 'w':
+        this.moveBoxUp();
+        break;
+
+      case 'ArrowDown':
+      case 's':
+        this.moveBoxDown();
+        break;
+
+      case 'ArrowLeft':
+      case 'a':
+        this.moveBoxLeft();
+        break;
+
+      case 'ArrowRight':
+      case 'd':
+        this.moveBoxRight();
+        break;
+
+      default:
+        return;
+    }
+  }
+
+  moveBoxUp(): void {
+    const marginTop = this.activeBox.style['margin-top.px'] || 0;
+    this.activeBox.style = { ...this.activeBox.style, 'margin-top.px': marginTop - this.speedInPx };
+  }
+
+  moveBoxDown(): void {
+    const marginTop = this.activeBox.style['margin-top.px'] || 0;
+    this.activeBox.style = { ...this.activeBox.style, 'margin-top.px': marginTop + this.speedInPx };
+  }
+
+  moveBoxLeft(): void {
+    const marginLeft = this.activeBox.style['margin-left.px'] || 0;
+    this.activeBox.style = { ...this.activeBox.style, 'margin-left.px': marginLeft - this.speedInPx };
+  }
+
+  moveBoxRight(): void {
+    const marginLeft = this.activeBox.style['margin-left.px'] || 0;
+    this.activeBox.style = { ...this.activeBox.style, 'margin-left.px': marginLeft + this.speedInPx };
   }
 }

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="screen">
             <div (click)="selectBox(box)" *ngFor="let box of boxList" class="box"
-                [ngClass]="{'box-active': activeBox && box.boxNumber === activeBox.boxNumber}" [ngStyle]="box.style">
+                [ngClass]="{'box-active':activeBox && box.boxNumber === activeBox.boxNumber}" [ngStyle]="box.style">
                 {{box.boxNumber}}
             </div>
         </div>

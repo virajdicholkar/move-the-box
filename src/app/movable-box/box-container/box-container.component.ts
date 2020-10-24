@@ -12,7 +12,7 @@ interface Box {
 })
 export class BoxContainerComponent implements OnInit {
   constructor() { }
-
+  activeBox: Box;
   boxList: Array<Box> = [];
 
   ngOnInit(): void {
@@ -20,8 +20,9 @@ export class BoxContainerComponent implements OnInit {
 
   addNewBox(): void {
     const listLength = this.boxList.length;
-    const boxNumber = listLength + 1;
-    const zIndex = listLength ? this.boxList[listLength - 1].style['z-index'] + 1 : 1;
+    const lastBox = this.boxList[listLength - 1];
+    const boxNumber = lastBox ? lastBox.boxNumber + 1 : 1;
+    const zIndex = lastBox ? lastBox.style['z-index'] + 1 : 1;
 
     const newBox: Box = {
       style: {
@@ -33,5 +34,13 @@ export class BoxContainerComponent implements OnInit {
     this.boxList.push(newBox);
   }
 
+  selectBox(box: Box): void {
+    this.activeBox = box;
+  }
 
+  deleteActiveBox(): void {
+    const selectedBoxIndex = this.boxList.findIndex(box => box.boxNumber === this.activeBox.boxNumber);
+    this.boxList.splice(selectedBoxIndex, 1);
+    this.selectBox(null);
+  }
 }

@@ -1,7 +1,8 @@
 <div class="container">
     <div class="row">
         <div class="screen">
-            <div *ngFor="let box of boxList" class="box" [ngStyle]="box.style">
+            <div (click)="selectBox(box)" *ngFor="let box of boxList" class="box"
+                [ngClass]="{'box-active': activeBox && box.boxNumber === activeBox.boxNumber}" [ngStyle]="box.style">
                 {{box.boxNumber}}
             </div>
         </div>
@@ -10,7 +11,7 @@
         <button class="box-action btn btn-info" (click)="addNewBox()">
             Add Box
         </button>
-        <button class="box-action btn btn-danger">
+        <button class="box-action btn btn-danger" *ngIf="activeBox" (click)="deleteActiveBox()">
             Delete Box
         </button>
     </div>

@@ -28,6 +28,11 @@
         width: 50px;
         position: absolute;
         border:  black solid 1px;
+        background-color: cornsilk;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 25px;
         &-active{
             background-color: chartreuse;
         }

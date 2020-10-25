@@ -14,7 +14,7 @@ export class BoxContainerComponent implements OnInit, AfterViewInit {
   constructor() { }
   activeBox: Box;
   boxList: Array<Box> = [];
-  readonly speedInPx = 10;
+  readonly speedInPx = 20;
   movableScreenWidth = 0;
   movableScreenHeight = 0;
   boxWidth = 100;
@@ -43,7 +43,7 @@ export class BoxContainerComponent implements OnInit, AfterViewInit {
       },
       boxNumber
     };
-    console.log('newBox', newBox)
+    this.activeBox = newBox;
     this.boxList.push(newBox);
   }
 

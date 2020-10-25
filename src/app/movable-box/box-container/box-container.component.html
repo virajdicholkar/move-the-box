@@ -1,18 +1,30 @@
-<div class="container">
-    <div class="row">
-        <div class="screen" #screen>
-            <div (click)="selectBox(box)" *ngFor="let box of boxList" class="box"
-                [ngClass]="{'box-active':activeBox && box.boxNumber === activeBox.boxNumber}" [ngStyle]="box.style">
-                {{box.boxNumber}}
+<div class="container gradient-bg">
+    <div class="row row-content-center">
+        <div class="game-container">
+
+            <div (click)="selectBox(null); " class="game-screen " #screen>
+                <div (click)="selectBox(box); $event.stopPropagation()" *ngFor="let box of boxList" class="box"
+                    [ngClass]="{'box-active':activeBox && box.boxNumber === activeBox.boxNumber}" [ngStyle]="box.style">
+                    {{box.boxNumber}}
+                </div>
+            </div>
+            <hr >
+            <div class="row row-content-center ">
+                <button class="box-action btn btn-success" (click)="addNewBox()" style="font-size: 35px;">
+                   +
+                </button>
+                <button class="box-action btn btn-danger" *ngIf="activeBox" (click)="deleteActiveBox()">
+                    X
+                </button>
+            </div>
+            <div class="row row-content-center" *ngIf="activeBox">
+                <div class="column">
+                    <small class="guidance-text">Press 'R' to reset position </small>
+                    <small class="guidance-text">Press 'Delete' to delete box </small>
+                </div>
             </div>
         </div>
+
     </div>
-    <div class="row row-content-center">
-        <button class="box-action btn btn-info" (click)="addNewBox()">
-            Add Box
-        </button>
-        <button class="box-action btn btn-danger" *ngIf="activeBox" (click)="deleteActiveBox()">
-            Delete Box
-        </button>
-    </div>
+
 </div>
